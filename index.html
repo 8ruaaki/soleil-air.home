@@ -97,24 +97,6 @@ nav a:hover::after {
   width: 100%;
 }
 
-/* モバイル時の縦並びやレイアウト変化を禁止 */
-@media (max-width: 768px) {
-  header {
-    position: fixed;
-  }
-
-  .nav-container {
-    flex-direction: row;
-  }
-
-  nav ul {
-    flex-direction: row;
-    gap: 32px;
-  }
-}
-
-
-
 /* ===== Hero Section ===== */
 .hero-image-actual {
     position: absolute; /* 親要素 (.main-visual) の位置を基準にする */
@@ -236,6 +218,13 @@ nav a:hover::after {
   /* スクロールバーの幅を「なし」に設定 */
   scrollbar-width: none; 
 }
+
+/* PCでのみ改行を適用するためのクラス */
+.pc-only {
+  /* PCではbrタグとして通常通り機能する */
+  display: inline;
+}
+
 .alert-banner {
   background: var(--alert-bg);
   color: var(--text-light);
@@ -255,6 +244,10 @@ nav a:hover::after {
 .alert-banner p {
   margin: 12px 0;
   line-height: 1.6;
+}
+
+.sp-only{
+  display: none;
 }
 
 /* 「詳細はこちら」ボタンを中央寄せ */
@@ -526,11 +519,105 @@ footer {
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .hero-content h1 { font-size: 3rem; }
+
+  /* ===== Header (スマホ対応強化) ===== */
+  .nav-container {
+    flex-direction: column; /* 要素を縦に並べる */
+    align-items: center; /* 左寄せ */
+    padding: 12px 16px; /* パディングを調整 */
+    white-space: normal; /* 強制的な折り返し禁止を解除 */
+    padding-bottom: 5px;
+  }
+
+  .logo {
+    width: 100%; /* ロゴを1行独占させる */
+    text-align: center; /* ロゴを中央寄せ */
+  }
+  .logo a {
+    font-size: 1.6rem; /* フォントサイズを小さく */
+  }
+
+  nav ul {
+    width: 100%;
+    flex-direction: column; /* リンクも縦並びに変更 */
+    gap: 3px; /* 縦の間隔を調整 */
+    margin-top: 5px;
+    align-items: center; /* 中央寄せ */
+  }
+
+  nav a {
+    /* 縦並びになったので、a要素がタップしやすいように幅を広げる */
+    padding: 3px 0;
+    display: block;
+    text-align: center;
+    width: 100%; /* 幅いっぱいに広げる */
+  }
+  
+
+  .main-visual{
+    height: 500px;
+  }
+  .hero-content h1 { font-size: 2rem; }
+  .merger-message{
+    font-size: 0.9rem;
+  }
+  .hero-content a{
+    font-size: 1rem;
+  }
+  
+  /* ===== Responsive (max-width: 768px) に追加するCSS ===== */
+@media (max-width: 768px) {
+  /* PC専用の改行タグを非表示にする */
+    .pc-only {
+      display: none;
+    }
+
+    /* アラートバナーの強制的な横スクロール設定を解除 */
+    .alert-banner {
+      white-space: normal; /* 強制的な横並びを解除 */
+      overflow-x: hidden; /* 不要な横スクロールを抑制 */
+      padding: 40px 5%; 
+    }
+
+    /* p要素内のテキストも自動で折り返すように確保 */
+    .alert-banner p {
+      white-space: normal; 
+      font-size: 1rem; /* 本文を読みやすいサイズに調整 */
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .sp-only{
+      display: block;
+    }
+  }
+    
+    .alert-banner h3 {
+        font-size: 1.2rem; /* タイトルを小さく調整 */
+    }
+
+  
+  /* ===== ニュースセクションのスマホ対応 ===== */
+    .news-section {
+        overflow-x: hidden; /* 横スクロールを抑制 */
+        padding: 40px 5%; /* 上下のパディングを調整 */
+    }
+
+    /* 900px固定幅を解除し、画面幅いっぱいに広げる */
+    .news-list,
+    .news-item {
+        width: 85%; /* 親要素(news-section)の幅に合わせる */
+        max-width: 100%;
+    }
+}
+
+
   .hero-content .tagline { font-size: 1.3rem; }
   .booking-button { font-size: 1.1rem; padding: 12px 35px; }
   .footer-content { flex-direction: column; align-items: center; text-align: center; }
-}
+
+
+
 </style>
 </head>
 
@@ -575,8 +662,8 @@ footer {
 <section class="alert-banner">
   <div class="alert-content">
     <h3>【重要】オリオン900型機 墜落事故に関するご報告と心よりのお詫び</h3>
-
-    <p>
+    <!-- <div style="width: 800px; text-align: center; margin: 0 auto;"> -->
+    <!-- <p>
       このたび、弊社が導入予定であった<strong>オリオン900型機</strong>が、<strong>アストレオン</strong>社のペイン・フィールド空港（PAE）から
       <br>東京国際空港（RJTT）への<strong style="color: var(--soleil-light);">回送運行（フェリーフライト）中</strong>に墜落する事故が発生いたしました。この事態を
       <br>厳粛に受け止めるとともに、今回の事故により、搭乗していた<strong style="color: var(--soleil-light);">弊社エースパイロット</strong>の<strong>安藤浩紀氏</strong>が亡くなられたことに、
@@ -584,7 +671,18 @@ footer {
       <br>(<strong>Skylink</strong>)に<strong style="color: var(--soleil-light);">致命的な欠陥は確認されず</strong>、<strong>パイロットによる不適切な手動介入</strong>が主要因であるとの結論に至っております。
       <br>弊社は、この結果を重く受け止めつつも、今後も<strong style="color: var(--soleil-light);">AI技術の活用によって人為的ミスを極限まで減らし</strong>、より安全な運航
       <br>体制を構築する理念を堅持してまいります。引き続き真相解明に努め、再発防止を徹底いたします。
+    </p> -->
+
+        <p>
+      このたび、弊社が導入予定であった<strong>オリオン900型機</strong>が、<strong>アストレオン</strong>社のペイン・フィールド空港（PAE）から
+      <br class="pc-only">東京国際空港（RJTT）への<strong style="color: var(--soleil-light);">回送運行（フェリーフライト）中</strong>に墜落する事故が発生いたしました。<br class="sp-only"><br class="sp-only">この事態を
+      <br class="pc-only">厳粛に受け止めるとともに、今回の事故により、搭乗していた<strong style="color: var(--soleil-light);">弊社エースパイロット</strong>の<strong>安藤浩紀氏</strong>が亡くなられたことに、
+      <br class="pc-only">深い哀悼の意を表します。<br class="sp-only"><br class="sp-only">この事故によるその他の犠牲者はおりません。現在までの詳細な調査の結果、機体システム
+      <br class="pc-only">(<strong>Skylink</strong>)に<strong style="color: var(--soleil-light);">致命的な欠陥は確認されず</strong>、<strong>パイロットによる不適切な手動介入</strong>が主要因であるとの結論に至っております。<br class="sp-only"><br class="sp-only">
+      <br class="pc-only">弊社は、この結果を重く受け止めつつも、今後も<strong style="color: var(--soleil-light);">AI技術の活用によって人為的ミスを極限まで減らし</strong>、より安全な運航
+      <br class="pc-only">体制を構築する理念を堅持してまいります。引き続き真相解明に努め、再発防止を徹底いたします。
     </p>
+
 
     <p style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
       関係者の皆さまおよびお客様に多大なご心配をおかけしましたことを、  
