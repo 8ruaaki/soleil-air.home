@@ -532,11 +532,45 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .hero-content h1 { font-size: 3rem; }
-  .hero-content .merger-message {font-size: 1rem;}
-  .hero-content .tagline { font-size: 1.3rem; }
-  .booking-button { font-size: 1.1rem; padding: 12px 35px; }
-  .footer-content { flex-direction: column; align-items: center; text-align: center; }
+/* --- 1. ヘッダー/ナビゲーションの修正 --- */
+    .nav-container { flex-direction: column; padding: 12px 15px; white-space: normal; }
+    .logo a { font-size: 1.5rem; margin-bottom: 10px; display: inline-block; }
+    nav ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
+    nav a { font-size: 0.85rem; padding: 5px 10px; }
+
+    /* --- 2. ヒーローセクションの修正 --- */
+    .main-visual { min-height: 500px; height: 70vh; /* モバイルでは少し高さを抑える */ }
+    .hero-content h1 { font-size: 2.8rem; margin: 10px 0; }
+    .hero-content .tagline { font-size: 1.3rem; margin-bottom: 15px;}
+    .hero-content .merger-message { font-size: 0.95rem; padding: 12px 18px; }
+    .hero-content .merger-message br { display: none; }
+    .booking-button { margin-top: 30px; padding: 14px 35px; font-size: 1.05rem; }
+
+    /* --- 3. アラート/ニュースセクションの強制解除と調整 --- */
+    .alert-banner { padding: 30px 15px; }
+    .alert-banner h3 { font-size: 1.3rem; }
+    .alert-banner p { width: auto; max-width: 100%; font-size: 0.9rem; line-height: 1.5; }
+    
+    .news-section { padding: 40px 15px; }
+    .news-section h2 { font-size: 2rem; margin-bottom: 30px; }
+    .news-item { width: auto; font-size: 0.9rem; padding: 15px; margin-bottom: 15px; }
+    .news-item h3 { font-size: 1.1rem; }
+    .news-item p { font-size: 0.85rem; }
+    .news-link { margin-top: 30px; }
+
+
+    /* --- 4. ナビゲーショングリッドの修正 --- */
+    .nav-grid { grid-template-columns: 1fr; gap: 15px; }
+    .nav-card { height: 160px; }
+    .nav-card h3 { font-size: 1.3rem; }
+
+    /* --- 5. フッターの修正 --- */
+    .footer-content { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+    .footer-col { width: 80%; margin-bottom: 0; }
+    .footer-col a { display: inline; margin: 0 8px; } /* モバイルで横並びにする */
+    .footer-col h4 { margin-bottom: 10px; }
+    .footer-col ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .footer-col li { margin-bottom: 0; }
 }
 </style>
 </head>
